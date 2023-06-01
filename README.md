@@ -106,15 +106,15 @@
 <!-- GETTING STARTED -->
 ## Getting Started
 
-Through this guide, I will try to explain how can I use AWS services and some tools to create an MLOPs pipeline that will be triggered to train and deploy everytime the latest commit whose message contains "Airflow" term is pushed.
+Through this guide, I will try to explain how can I use AWS services and some tools to create an MLOPs pipeline that can be triggered to train and deploy everytime the latest commit whose message contains "Airflow" term is pushed.
 ### Classification problem
-A resnet18 neural network will be used for image classification. The dataset will be put into `./ml/data/train`, `./ml/data/valid`, `./ml/data/test`.
-The configuration file for training, testing will be put into `./ml/configs`.
-I take the [flower dataset](https://public.roboflow.com/classification/flowers_classification/2) as an example for this project.
+A resnet18 neural network is used for image classification. The dataset will be put into `./ml/data/train`, `./ml/data/valid`, `./ml/data/test`.
+The configuration file for training, testing is put into `./ml/configs`.
+The [flower dataset](https://public.roboflow.com/classification/flowers_classification/2) is taken as an example for this project.
 
 ### Code and Data versioning
 
-DVC is used for data versioning and GIT is used for code versioning. Data cache will be stored in a S3 remote storage.
+DVC is used for data versioning and GIT is used for code versioning. Data cache is stored in a S3 remote storage.
 
 * Install DVC:
   ```sh
