@@ -1,0 +1,12 @@
+# Dependencies for the training environment
+dvc==2.57.3 # Data versioning
+dvc-s3==2.22.0 # S3 remote storage for data cache from DVC
+hyperopt==0.2.7 # Hyp tuning
+mlflow==2.3.2 # Experiment tracking and model registry
+virtualenv==20.23.0
+
+# Torch
+-f https://download.pytorch.org/whl/torch_stable.html
+torch==2.0.1+cpu
+torchvision==0.15.2+cpu
+torchmetrics==0.11.4

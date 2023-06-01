@@ -1,0 +1,5 @@
+# Dependencies for deploying the model (load and predict)
+-f https://download.pytorch.org/whl/torch_stable.html
+torch==2.0.1+cpu
+torchvision==0.15.2+cpu
+torchmetrics==0.11.4

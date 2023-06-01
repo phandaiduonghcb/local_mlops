@@ -1,0 +1,3 @@
+['remote "local-mlops-bucket"']
+    url = s3://local-mlops-bucket
+    profile = duongpd7
