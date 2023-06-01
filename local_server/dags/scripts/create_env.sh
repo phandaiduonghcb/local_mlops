@@ -17,6 +17,6 @@ $HOME/conda/envs/training_env/bin/pip cache purge
 pip cache purge
 cd local_mlops
 echo "Current working dir: $PWD"
-dvc pull -AaR -r dvc-flower-bucket
+dvc pull -AaR -r local-mlops-bucket
 ls ./ml/data/*
 echo "Create env successfully!"
