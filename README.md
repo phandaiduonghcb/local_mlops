@@ -34,7 +34,7 @@
     <img src="images/logo.png" alt="Logo" width="80" height="80">
   </a>
 
-<h3 align="center">MLOPs pipeline for a classification problem</h3>
+<h3 align="center">Local MLOPs pipeline for a classification problem</h3>
 
   <p align="center">
     This repository contains source code, configuration files for setuping a MLOPs pipeline that can be automatically triggered to train and deploy the best model using AWS services.
