@@ -4,6 +4,7 @@ dvc-s3==2.22.0 # S3 remote storage for data cache from DVC
 hyperopt==0.2.7 # Hyp tuning
 mlflow==2.3.2 # Experiment tracking and model registry
 virtualenv==20.23.0
+python-Levenshtein
 
 # Torch
 -f https://download.pytorch.org/whl/torch_stable.html
