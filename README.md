@@ -150,6 +150,9 @@ Airflow will be installed in the local machine for training and testing process.
     docker compose up
   ```
 Now the Airflow container is running in the local machine
+> **Note:**
+> Because Airflow is running in local machine, we can not use REST API for trigger the DAG to run. A task named `check_git_task` is added to check if there is any change in the main branch of the remote repository. If there is no change, skip all tasks after it. Otherwise, new code is pulled and the training and deployment process will run as usual. Therefore, the DAG should be configured to run periodically to check the remote repo.
+
 ### Setup remote servers
 A small EC2 instance is used for running mlflow server using its docker image. The instance should be associated with an Elastic IP and expose the port (default 5000) to which mlflow server is listening. Remember to set host and timeout options:
   ```sh
