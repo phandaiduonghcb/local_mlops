@@ -9,7 +9,7 @@ if [ -d "$LOCAL_REPO_DIRECTORY/$REPO_NAME" ]
 then
     cd $REPO_NAME
     # Get the SHA of the latest commit on the remote main branch
-    LATEST_SHA=$(curl -s -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/$REPO_OWNER/$REPO_NAME/branches/main | jq -r '.commit.sha')
+    LATEST_SHA=$(git rev-parse `git branch -r --sort=committerdate | tail -1`)
 
     # Get the SHA of the commit that was last pulled on the local main branch
     LOCAL_SHA=$(git rev-parse main)
