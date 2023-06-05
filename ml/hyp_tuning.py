@@ -30,7 +30,7 @@ import numpy as np
 from model import build_model
 
 experiment_name = "classification_runs"
-mlflow.set_tracking_uri('http://mlops-load-balancer-1733374265.us-east-2.elb.amazonaws.com/')
+mlflow.set_tracking_uri('http://ec2-3-140-8-16.us-east-2.compute.amazonaws.com:5000')
 mlflow.set_experiment(experiment_name)
 
 import mlflow

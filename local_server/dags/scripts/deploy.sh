@@ -5,7 +5,7 @@ conda env list
 REPO_NAME=local_mlops
 LOCAL_REPO_DIRECTORY=$HOME
 REPO_OWNER=phandaiduonghcb
-export MLFLOW_TRACKING_URI='http://mlops-load-balancer-1733374265.us-east-2.elb.amazonaws.com/'
+export MLFLOW_TRACKING_URI='http://ec2-3-140-8-16.us-east-2.compute.amazonaws.com:5000'
 EXPERIMENT_NAME='classification_runs'
 NEWEST_ARTIFACT_PATH=$(python << EOF
 import mlflow
