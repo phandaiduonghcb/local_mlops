@@ -1,0 +1,64 @@
+{
+    "family": "mlops-deployment-definition",
+    "containerDefinitions": [
+        {
+            "name": "mlflow-serve",
+            "image": "666243375423.dkr.ecr.us-east-2.amazonaws.com/mlflow-model-serve:latest",
+            "cpu": 0,
+            "portMappings": [
+                {
+                    "name": "mlflow-serve-80-tcp",
+                    "containerPort": 80,
+                    "hostPort": 80,
+                    "protocol": "tcp",
+                    "appProtocol": "http"
+                },
+                {
+                    "name": "mlflow-serve-1234-tcp",
+                    "containerPort": 1234,
+                    "hostPort": 1234,
+                    "protocol": "tcp",
+                    "appProtocol": "http"
+                }
+            ],
+            "essential": true,
+            "command": [
+                "mlflow",
+                "models",
+                "serve",
+                "-m",
+                "/model",
+                "--host",
+                "0.0.0.0",
+                "--port",
+                "1234"
+            ],
+            "environment": [],
+            "environmentFiles": [],
+            "mountPoints": [],
+            "volumesFrom": [],
+            "ulimits": [],
+            "logConfiguration": {
+                "logDriver": "awslogs",
+                "options": {
+                    "awslogs-create-group": "true",
+                    "awslogs-group": "/ecs/mlops-deployment-definition",
+                    "awslogs-region": "us-east-2",
+                    "awslogs-stream-prefix": "ecs"
+                }
+            }
+        }
+    ],
+    "taskRoleArn": "arn:aws:iam::666243375423:role/ecsTaskExecutionRole",
+    "executionRoleArn": "arn:aws:iam::666243375423:role/ecsTaskExecutionRole",
+    "networkMode": "awsvpc",
+    "requiresCompatibilities": [
+        "FARGATE"
+    ],
+    "cpu": "1024",
+    "memory": "3072",
+    "runtimePlatform": {
+        "cpuArchitecture": "X86_64",
+        "operatingSystemFamily": "LINUX"
+    }
+}

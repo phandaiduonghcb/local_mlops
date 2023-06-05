@@ -1,0 +1,183 @@
+{
+    "services": [
+        {
+            "serviceArn": "arn:aws:ecs:us-east-2:666243375423:service/mlops-ecs-cluster/mlops-deploy-service",
+            "serviceName": "mlops-deploy-service",
+            "clusterArn": "arn:aws:ecs:us-east-2:666243375423:cluster/mlops-ecs-cluster",
+            "loadBalancers": [
+                {
+                    "targetGroupArn": "arn:aws:elasticloadbalancing:us-east-2:666243375423:targetgroup/mlops-deployment-group/4d875a896a141bf3",
+                    "containerName": "mlflow-serve",
+                    "containerPort": 1234
+                }
+            ],
+            "serviceRegistries": [],
+            "status": "ACTIVE",
+            "desiredCount": 1,
+            "runningCount": 1,
+            "pendingCount": 0,
+            "launchType": "FARGATE",
+            "platformVersion": "LATEST",
+            "platformFamily": "Linux",
+            "taskDefinition": "arn:aws:ecs:us-east-2:666243375423:task-definition/mlops-deployment-definition:1",
+            "deploymentConfiguration": {
+                "deploymentCircuitBreaker": {
+                    "enable": true,
+                    "rollback": true
+                },
+                "maximumPercent": 200,
+                "minimumHealthyPercent": 100
+            },
+            "deployments": [
+                {
+                    "id": "ecs-svc/5317049144687150360",
+                    "status": "PRIMARY",
+                    "taskDefinition": "arn:aws:ecs:us-east-2:666243375423:task-definition/mlops-deployment-definition:1",
+                    "desiredCount": 1,
+                    "pendingCount": 0,
+                    "runningCount": 1,
+                    "failedTasks": 0,
+                    "createdAt": "2023-06-05T11:24:01.322000+07:00",
+                    "updatedAt": "2023-06-05T11:27:43.488000+07:00",
+                    "launchType": "FARGATE",
+                    "platformVersion": "1.4.0",
+                    "platformFamily": "Linux",
+                    "networkConfiguration": {
+                        "awsvpcConfiguration": {
+                            "subnets": [
+                                "subnet-0344d44130e11b79c",
+                                "subnet-0de56d1e9c2d97060",
+                                "subnet-02bbfe46ba29ce20a"
+                            ],
+                            "securityGroups": [
+                                "sg-00fae3169ad3cda16"
+                            ],
+                            "assignPublicIp": "ENABLED"
+                        }
+                    },
+                    "rolloutState": "COMPLETED",
+                    "rolloutStateReason": "ECS deployment ecs-svc/5317049144687150360 completed."
+                }
+            ],
+            "roleArn": "arn:aws:iam::666243375423:role/aws-service-role/ecs.amazonaws.com/AWSServiceRoleForECS",
+            "events": [
+                {
+                    "id": "1fdbcc7e-f089-4aed-9844-88ba98361185",
+                    "createdAt": "2023-06-05T11:27:43.495000+07:00",
+                    "message": "(service mlops-deploy-service) has reached a steady state."
+                },
+                {
+                    "id": "30204f99-abb3-4c7f-a1ef-3113314880fb",
+                    "createdAt": "2023-06-05T11:27:43.494000+07:00",
+                    "message": "(service mlops-deploy-service) (deployment ecs-svc/5317049144687150360) deployment completed."
+                },
+                {
+                    "id": "0e214c35-3ccd-4901-b2ee-2a2aba9f4546",
+                    "createdAt": "2023-06-05T11:26:38.136000+07:00",
+                    "message": "(service mlops-deploy-service, taskSet ecs-svc/7625563797975689444) has begun draining connections on 1 tasks."
+                },
+                {
+                    "id": "5ecdf551-4370-4cc7-8d10-e9f22efdd8c8",
+                    "createdAt": "2023-06-05T11:26:38.132000+07:00",
+                    "message": "(service mlops-deploy-service) deregistered 1 targets in (target-group arn:aws:elasticloadbalancing:us-east-2:666243375423:targetgroup/mlops-deployment-group/4d875a896a141bf3)"
+                },
+                {
+                    "id": "5ee69efd-6404-4567-9079-51c7c416c90f",
+                    "createdAt": "2023-06-05T11:26:28.932000+07:00",
+                    "message": "(service mlops-deploy-service) has stopped 1 running tasks: (task 50159fe61abe4e5985b099d3b00e86a6)."
+                },
+                {
+                    "id": "8b1f092c-c604-414f-9aae-ce9ed73340a6",
+                    "createdAt": "2023-06-05T11:25:40.464000+07:00",
+                    "message": "(service mlops-deploy-service) registered 1 targets in (target-group arn:aws:elasticloadbalancing:us-east-2:666243375423:targetgroup/mlops-deployment-group/4d875a896a141bf3)"
+                },
+                {
+                    "id": "bbe83263-308b-47f9-bf91-d22af234b5a5",
+                    "createdAt": "2023-06-05T11:24:13.442000+07:00",
+                    "message": "(service mlops-deploy-service) has started 1 tasks: (task 41856da59e7243f6876c30c75cbc8645)."
+                },
+                {
+                    "id": "09d21728-57f5-4e16-b05e-dc57ca0eb9c2",
+                    "createdAt": "2023-06-05T11:01:52.710000+07:00",
+                    "message": "(service mlops-deploy-service) has reached a steady state."
+                },
+                {
+                    "id": "a570bf0c-ca43-4c6c-b36a-9b51990a5034",
+                    "createdAt": "2023-06-05T11:01:52.709000+07:00",
+                    "message": "(service mlops-deploy-service) (deployment ecs-svc/7625563797975689444) deployment completed."
+                },
+                {
+                    "id": "0ae58186-60fd-4eb7-8669-d7279153d32c",
+                    "createdAt": "2023-06-05T11:00:50.504000+07:00",
+                    "message": "(service mlops-deploy-service, taskSet ecs-svc/5739224718274860381) has begun draining connections on 1 tasks."
+                },
+                {
+                    "id": "69e58c2f-dc19-4dbe-91f6-da9a0e397241",
+                    "createdAt": "2023-06-05T11:00:50.500000+07:00",
+                    "message": "(service mlops-deploy-service) deregistered 1 targets in (target-group arn:aws:elasticloadbalancing:us-east-2:666243375423:targetgroup/mlops-deployment-group/4d875a896a141bf3)"
+                },
+                {
+                    "id": "4e51d592-820b-4c7f-a680-53aa78a3c20d",
+                    "createdAt": "2023-06-05T11:00:41.566000+07:00",
+                    "message": "(service mlops-deploy-service) has stopped 1 running tasks: (task bf2ca98ba5a04ef49497d4bdacdff225)."
+                },
+                {
+                    "id": "8e374558-0588-436a-85a4-8e1a846cb5e0",
+                    "createdAt": "2023-06-05T10:59:52.719000+07:00",
+                    "message": "(service mlops-deploy-service) registered 1 targets in (target-group arn:aws:elasticloadbalancing:us-east-2:666243375423:targetgroup/mlops-deployment-group/4d875a896a141bf3)"
+                },
+                {
+                    "id": "58daacd2-7c17-497d-a9a0-275e9085cd35",
+                    "createdAt": "2023-06-05T10:58:16.646000+07:00",
+                    "message": "(service mlops-deploy-service) has started 1 tasks: (task 50159fe61abe4e5985b099d3b00e86a6)."
+                },
+                {
+                    "id": "0c202c23-0038-4d7b-baee-053e589a3641",
+                    "createdAt": "2023-06-05T09:47:28.404000+07:00",
+                    "message": "(service mlops-deploy-service) has reached a steady state."
+                },
+                {
+                    "id": "75ded263-e149-495e-9e11-0c23202b1e6f",
+                    "createdAt": "2023-06-05T09:47:28.403000+07:00",
+                    "message": "(service mlops-deploy-service) (deployment ecs-svc/5739224718274860381) deployment completed."
+                },
+                {
+                    "id": "2cce94f3-7fd3-4b06-bd42-fa008f11f906",
+                    "createdAt": "2023-06-05T09:47:09.261000+07:00",
+                    "message": "(service mlops-deploy-service) registered 1 targets in (target-group arn:aws:elasticloadbalancing:us-east-2:666243375423:targetgroup/mlops-deployment-group/4d875a896a141bf3)"
+                },
+                {
+                    "id": "835aff8d-b78d-45b3-a1e1-1bdb6defc943",
+                    "createdAt": "2023-06-05T09:45:32.409000+07:00",
+                    "message": "(service mlops-deploy-service) has started 1 tasks: (task bf2ca98ba5a04ef49497d4bdacdff225)."
+                }
+            ],
+            "createdAt": "2023-06-05T09:45:27.016000+07:00",
+            "placementConstraints": [],
+            "placementStrategy": [],
+            "networkConfiguration": {
+                "awsvpcConfiguration": {
+                    "subnets": [
+                        "subnet-0344d44130e11b79c",
+                        "subnet-0de56d1e9c2d97060",
+                        "subnet-02bbfe46ba29ce20a"
+                    ],
+                    "securityGroups": [
+                        "sg-00fae3169ad3cda16"
+                    ],
+                    "assignPublicIp": "ENABLED"
+                }
+            },
+            "healthCheckGracePeriodSeconds": 0,
+            "schedulingStrategy": "REPLICA",
+            "deploymentController": {
+                "type": "ECS"
+            },
+            "createdBy": "arn:aws:iam::666243375423:user/DuongPD7",
+            "enableECSManagedTags": true,
+            "propagateTags": "NONE",
+            "enableExecuteCommand": false
+        }
+    ],
+    "failures": []
+}

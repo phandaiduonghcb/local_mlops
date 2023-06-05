@@ -106,7 +106,7 @@
 <!-- GETTING STARTED -->
 ## Getting Started
 
-Through this guide, I will try to explain how can I use AWS services and some tools to create an MLOPs pipeline that can be triggered to train and deploy everytime the latest commit whose message contains "Airflow" term is pushed.
+Through this guide, I will try to explain how can I use AWS services and some tools to create an MLOPs pipeline that can be triggered to train and deploy everytime the latest commit whose message contains "Airflow" term is pushed. The repo is similar to this [mlops repo](https://github.com/phandaiduonghcb/mlops) but the training, testing process will be conducted in a local machine and I take the advantage of AWS Fargte and ECR for easier deployment process.
 ### Classification problem
 A resnet18 neural network is used for image classification. The dataset is put into `./ml/data/train`, `./ml/data/valid`, `./ml/data/test`.
 The configuration file for training, testing is put into `./ml/configs`.
@@ -124,47 +124,42 @@ DVC is used for data versioning and GIT is used for code versioning. Data cache 
 
 * Use DVC to track your data. Remember to setup AWS credentials using `./server_setup/aws_config` and copy all files in that folder to `~/.aws/`
   ```sh
+    dvc init
     dvc add ml/data/*
-    git add data/*
-    git commit -m "Add raw data" # Git tracks the metadata of the dataset
-    dvc remote add dvc-flower-bucket s3://dvc-flower-bucket # created s3 bucket for storing data cache
-    dvc remote modify dvc-flower-bucket profile duongpd7
-    dvc push -r dvc-flower-bucket
+    git add ml/data/valid.dvc ml/data/test.dvc ml/data/train.dvc ml/data/.gitignore
+    dvc remote add local-mlops-bucket s3://local-mlops-bucket
+    dvc remote modify local-mlops-bucket profile duongpd7
+    dvc push -r local-mlops-bucket
   ```
 
-### Setup an EC2 server
-Airflow, MLflow will be installed on an EC2 server.
-Here are ports that are used in EC2:
-- 8080: Airflow
-- 1234: Mlflow tracking server
-- 4321: deployed endpoint url
-- 6000: used to trigger deployment process when there is an model put to s3.
+### Setup the local machine
+Airflow will be installed in the local machine for training and testing process.
+> **Note:**
+> The working folder for Airflow docker container should be located in your $HOME path. Otherwise it doesn't work for me.
 * Create working directory and prepare folders for volume mounting. After creating folders, copy **files** in `server_setup/`:
   ```sh
-    mkdir workspace # Store logs, models, artifacts created by Airflow and Mlflow
-    mkdir deployment # Build and run deployment docker image
+    mkdir workspace # Store logs, dags and training runs created by Airflow
     cd workspace
-    mkdir -p ./dags ./logs ./plugins ./config ./mlruns ./training_runs # Have to create manually to avoid permission issue.
+    mkdir -p ./dags ./logs ./plugins ./config ./training_runs # Have to create manually to avoid permission issue.
+  ```
+
+* An docker image for deployment is built inside the Airflow container so it must be configured to use docker build command. Change the `/var/run/docker.sock` permission so that Airflow container can use it:
+  ```sh
+    chmod 777 /var/run/docker.sock
   ```
 * Now run airflow server and mlflow server using docker compose:
   ```sh
     echo -e "AIRFLOW_UID=$(id -u)" > .env
     docker compose up
   ```
-
-* Setup port 6000 to listening for request sent by from lambda triggered by S3.
+Now the Airflow container is running in the local machine
+### Setup remote servers
+A small EC2 instance is used for running mlflow server using its docker image. The instance should be associated with an Elastic IP and expose the port (default 5000) to which mlflow server is listening. Remember to set host and timeout options:
   ```sh
-    xinetd-deployment-trigger
-    apt install xinetd
-    # After install xinetd, copy server_setup/scripts/xinetd-deployment-trigger to /etc/xinetd.d/ and modify the its "server" path to server_setup/scripts/trigger-deployment.sh placed on EC2.
-    systemctl start xinetd
-    systemctl enable xinetd
-
+    sudo docker run -p 5000:5000 --name mlflow_server ghcr.io/mlflow/mlflow:v2.3.2 mlflow server --host 0.0.0.0 --gunicorn-opts --timeout=600
+    # If the timeout limit is small, downlading large artifacts can raise errors.
   ```
-### Setup S3 - Lambda for triggering
-S3 is configured to trigger lambda function whenever a model.zip file is put into it. The lambda function will send a request to the EC2 server at port 6000 to tell it to rebuild and deploy the model uploaded.
-The lambda function should be created from docker image. Source is stored at `deployment/lambda`. The `app.py` file should be modified for the correct url of the EC2.
-
+ECS fargate is used for serving the best mlflow model from registry to obtain endpoint urls with zero downtime compared to the solution in my [previous repo](https://github.com/phandaiduonghcb/mlops). Please refer to json files in `./ecs` to learn more about configuration I used for the deployment process. A load balancer is used to assign static URL for the endpoint served by the deployment container.
 <!-- LICENSE -->
 ## License
 
