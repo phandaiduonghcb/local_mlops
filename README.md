@@ -119,7 +119,7 @@ DVC is used for data versioning and GIT is used for code versioning. Data cache 
   ```
 
 
-* Use DVC to track your data. Remember to setup AWS credentials using `./server_setup/aws_config` and copy all files in that folder to `~/.aws/`
+* Use DVC to track your data. Remember to setup AWS credentials using `./local_server/aws_config` and copy all files in that folder to `~/.aws/`
   ```sh
     dvc init
     dvc add ml/data/*
@@ -133,7 +133,7 @@ DVC is used for data versioning and GIT is used for code versioning. Data cache 
 Airflow will be installed in the local machine for training and testing process.
 > **Note:**
 > The working folder for Airflow docker container should be located in your $HOME path. Otherwise it doesn't work for me.
-* Create working directory and prepare folders for volume mounting. After creating folders, copy **files** in `server_setup/`:
+* Create working directory and prepare folders for volume mounting. After creating folders, copy **files** and `aws_configure` in `local_server/` to the local workspace folder:
   ```sh
     mkdir workspace # Store logs, dags and training runs created by Airflow
     cd workspace
