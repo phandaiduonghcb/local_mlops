@@ -47,6 +47,7 @@ AWS_ACCOUNT_ID=$(aws sts get-caller-identity --query "Account" --output text --p
 AWS_ACCOUNT_LOCATION=$(aws configure get region --profile duongpd7)
 REMOTE_REPOSITORY_NAME=mlflow-model-serve
 
+find . -not \( -name 'docker-compose.yaml' -or -name 'Dockerfile' \) -delete
 mlflow artifacts download -u $BEST_ARTIFACT_PATH -d .
 mv artifacts/* .
 aws ecr get-login-password --profile duongpd7 \
@@ -54,4 +55,4 @@ aws ecr get-login-password --profile duongpd7 \
 docker build -t ${REMOTE_REPOSITORY_NAME} . --build-arg dst_model_path=${REMOTE_MODEL_PATH}
 docker tag ${REMOTE_REPOSITORY_NAME}:latest ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_ACCOUNT_LOCATION}.amazonaws.com/${REMOTE_REPOSITORY_NAME}:latest
 docker push ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_ACCOUNT_LOCATION}.amazonaws.com/${REMOTE_REPOSITORY_NAME}:latest
-aws ecs update-service --cluster mlops-ecs-cluster --service mlops-deployment-service --force-new-deployment --profile duongpd7 &>/dev/null
+aws ecs update-service --cluster mlops-ecs-cluster --service mlops-deploy-service --force-new-deployment --profile duongpd7 &>/dev/null
